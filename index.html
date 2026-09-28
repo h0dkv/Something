@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Пазителят на Мечтите</title>
-    <!-- Tailwind CSS & Font & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Marcellus&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -44,11 +43,14 @@
         .glow-gold {
             filter: drop-shadow(0 0 12px rgba(253, 224, 71, 0.8));
         }
+        canvas {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-between h-full bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950">
 
-    <!-- Top HUD Header Bar -->
     <header class="w-full max-w-2xl px-4 pt-2 pb-1 flex items-center justify-between z-10">
         <div class="flex items-center space-x-2">
             <div class="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-amber-300 glow-gold">
@@ -61,16 +63,15 @@
         </div>
 
         <div class="flex items-center space-x-2">
-            <button id="btn-sound" class="p-2 rounded-xl touch-btn text-amber-200">
+            <button id="btn-sound" class="p-2 rounded-xl touch-btn text-amber-200" aria-label="Звук">
                 <i data-lucide="volume-2" id="icon-sound" class="w-4 h-4 sm:w-5 sm:h-5"></i>
             </button>
-            <button id="btn-restart" class="p-2 rounded-xl touch-btn text-amber-200">
+            <button id="btn-restart" class="p-2 rounded-xl touch-btn text-amber-200" aria-label="Презареди">
                 <i data-lucide="rotate-ccw" class="w-4 h-4 sm:w-5 sm:h-5"></i>
             </button>
         </div>
     </header>
 
-    <!-- Progress Indicator Bar -->
     <div class="w-full max-w-xl px-4 mb-1 z-10 shrink-0">
         <div class="flex items-center justify-between text-[10px] text-purple-300/70 mb-1">
             <span>Прогрес</span>
@@ -81,24 +82,23 @@
         </div>
     </div>
 
-    <!-- Main Game Canvas Container -->
-    <main class="relative w-full max-w-xl flex-1 flex flex-col items-center justify-center px-2 py-1 overflow-hidden">
-        <div class="relative w-full aspect-[2/3] max-h-[66vh] bg-slate-900/90 rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl flex items-center justify-center">
-            <canvas id="gameCanvas" class="w-full h-full block object-contain"></canvas>
+    <main class="relative w-full max-w-xl flex-1 min-h-0 flex flex-col items-center justify-center px-2 py-1 overflow-hidden">
+        <div class="relative flex-1 min-h-0 w-full flex items-center justify-center">
+            <div class="relative h-full max-w-full aspect-[2/3] bg-slate-900/90 rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl flex items-center justify-center">
+                <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
 
-            <!-- Start Game Overlay -->
-            <div id="overlay-start" class="absolute inset-0 bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-20 transition-all duration-300">
-                <div class="w-16 h-16 bg-amber-400/20 rounded-full border border-amber-300/50 flex items-center justify-center mb-4 animate-bounce glow-gold">
-                    <i data-lucide="moon" class="w-8 h-8 text-amber-300 fill-amber-300"></i>
+                <!-- Start Game Overlay -->
+                <div id="overlay-start" class="absolute inset-0 bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-20 transition-all duration-300">
+                    <i data-lucide="sparkles" class="w-10 h-10 text-amber-300 fill-amber-300 mb-3 glow-gold"></i>
+                    <h2 class="font-title text-2xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-purple-300 mb-2">Пазителят на Мечтите</h2>
+                    <p class="text-xs sm:text-sm text-purple-200/90 max-w-xs mb-6 leading-relaxed">
+                        Помогни на малкото духче Звездичка да премине през 5-те вълшебни цвята на нощта и да възстанови Дървото на Скритите Мечти!
+                    </p>
+                    <button id="btn-start-game" class="py-3.5 px-7 bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-bold text-sm rounded-2xl shadow-lg shadow-purple-500/30 active:scale-95 transition flex items-center space-x-2">
+                        <i data-lucide="play" class="w-5 h-5 fill-white"></i>
+                        <span>Започни Приключението</span>
+                    </button>
                 </div>
-                <h2 class="font-title text-2xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-purple-300 mb-2">Пазителят на Мечтите</h2>
-                <p class="text-xs sm:text-sm text-purple-200/90 max-w-xs mb-6 leading-relaxed">
-                    Помогни на малкото духче Звездичка да премине през 5-те вълшебни цвята на нощта и да възстанови Дървото на Скритите Мечти!
-                </p>
-                <button id="btn-start-game" class="py-3.5 px-7 bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-bold text-sm rounded-2xl shadow-lg shadow-purple-500/30 active:scale-95 transition flex items-center space-x-2">
-                    <i data-lucide="play" class="w-5 h-5 fill-white"></i>
-                    <span>Започни Приключението</span>
-                </button>
             </div>
 
             <!-- Intermission / Level Clear Overlay -->
@@ -135,14 +135,14 @@
                             Всяко ниво, което премина, символизира нещо специално: твоята доброта, смелост, светлина и магията, която носиш в живота ми.
                         </p>
                         <p class="font-bold text-pink-300 not-italic text-base sm:text-lg pt-1">
-                            Мая, Би ли станала с мене гадже?
+                            Мая, би ли станала гадже с мене?
                         </p>
                     </div>
 
                     <!-- Evasive Response Buttons -->
                     <div class="relative min-h-[90px] flex items-center justify-center gap-3" id="proposal-controls">
                         <button id="btn-yes" class="px-7 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-pink-500/40 active:scale-95 transition z-10">
-                            ДА!
+                            ДА! ❤️
                         </button>
 
                         <button id="btn-no" class="px-5 py-3 bg-slate-800 text-purple-300 font-semibold text-xs rounded-xl border border-white/10 transition duration-150 absolute sm:relative">
@@ -153,21 +153,29 @@
             </div>
         </div>
 
-        <!-- Responsive Mobile Touch Controls -->
-        <div class="w-full max-w-xl mt-2 px-3 pb-2 flex items-center justify-between select-none shrink-0">
-            <div class="flex space-x-2.5">
-                <button id="touch-left" class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl touch-btn flex items-center justify-center text-white active:scale-90">
-                    <i data-lucide="arrow-left" class="w-6 h-6"></i>
+        <div id="touch-controls-bar" class="w-full max-w-xl mt-2 px-3 pb-2 flex items-center justify-between select-none shrink-0">
+            <!-- Left / Right Movement Cluster -->
+            <div class="flex space-x-3">
+                <button id="touch-left" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl touch-btn flex items-center justify-center text-white active:scale-90">
+                    <i data-lucide="arrow-left" class="w-8 h-8"></i>
                 </button>
-                <button id="touch-right" class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl touch-btn flex items-center justify-center text-white active:scale-90">
-                    <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                <button id="touch-right" class="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl touch-btn flex items-center justify-center text-white active:scale-90">
+                    <i data-lucide="arrow-right" class="w-8 h-8"></i>
                 </button>
             </div>
-            <div class="flex space-x-2">
-                <button id="touch-up" class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl touch-btn flex items-center justify-center text-white active:scale-90 hidden">
-                    <i data-lucide="arrow-up" class="w-6 h-6"></i>
+
+            <!-- Up / Down / Jump Cluster -->
+            <div class="flex space-x-2.5 items-center">
+                <!-- Maze Navigation Direction Buttons (Up / Down) -->
+                <button id="touch-up" class="w-15 h-15 sm:w-16 sm:h-16 rounded-2xl touch-btn flex items-center justify-center text-white active:scale-90 hidden">
+                    <i data-lucide="arrow-up" class="w-7 h-7"></i>
                 </button>
-                <button id="touch-jump" class="w-16 h-13 sm:w-20 sm:h-14 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-xs shadow-lg active:scale-90 flex items-center justify-center">
+                <button id="touch-down" class="w-15 h-15 sm:w-16 sm:h-16 rounded-2xl touch-btn flex items-center justify-center text-white active:scale-90 hidden">
+                    <i data-lucide="arrow-down" class="w-7 h-7"></i>
+                </button>
+
+                <!-- Platformer Jump Button -->
+                <button id="touch-jump" class="w-20 h-16 sm:w-24 sm:h-18 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-sm shadow-lg active:scale-90 flex items-center justify-center">
                     СКОК
                 </button>
             </div>
@@ -175,7 +183,6 @@
     </main>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
         /* Web Audio API Sound Synthesizer */
@@ -244,21 +251,29 @@
 
         const sound = new SoundEngine();
 
-        /* Canvas Engine & Game State */
+        /* Canvas Setup & Game Constants */
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const V_WIDTH = 400;
         const V_HEIGHT = 600;
-        canvas.width = V_WIDTH;
-        canvas.height = V_HEIGHT;
+
+        // HDPI / Retina Display Sharpness Optimization
+        function setupHDPI() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = V_WIDTH * dpr;
+            canvas.height = V_HEIGHT * dpr;
+            ctx.scale(dpr, dpr);
+        }
+        setupHDPI();
 
         let currentLevel = 1;
         let gameActive = false;
         let keys = { left: false, right: false, up: false, down: false };
         let lastSafeX = 40;
         let lastSafeY = 500;
+        let animPulse = 0;
 
-        // Save progress to localStorage
+        // Restore level if available
         const savedLevel = localStorage.getItem('guardian_dreams_level');
         if (savedLevel && parseInt(savedLevel) <= 5) {
             currentLevel = parseInt(savedLevel);
@@ -284,36 +299,30 @@
                 this.anim += 0.15;
 
                 if (levelType === 'maze') {
-                    // Top-down movement
                     this.vx = keys.left ? -2.8 : keys.right ? 2.8 : 0;
                     this.vy = keys.up ? -2.8 : keys.down ? 2.8 : 0;
                     this.x += this.vx;
                     this.y += this.vy;
-                    // Keep in bounds
                     this.x = Math.max(10, Math.min(V_WIDTH - this.w - 10, this.x));
                     this.y = Math.max(10, Math.min(V_HEIGHT - this.h - 10, this.y));
                     return;
                 }
 
-                // Platformer Movement
                 const moveSpeed = levelType === 'lake' ? 3.6 : 3.2;
                 if (keys.left) this.vx = -moveSpeed;
                 else if (keys.right) this.vx = moveSpeed;
                 else this.vx *= 0.7;
 
                 if (keys.up && this.isGrounded) {
-                    this.vy = levelType === 'lake' ? -9.2 : -8.5; // Stronger jump for Level 3
+                    this.vy = levelType === 'lake' ? -9.2 : -8.5;
                     this.isGrounded = false;
                     sound.playJump();
                 }
 
-                this.vy += 0.38; // Gravity
-
-                // X position & platform check
+                this.vy += 0.38;
                 this.x += this.vx;
                 this.x = Math.max(0, Math.min(V_WIDTH - this.w, this.x));
 
-                // Y position & platform check
                 this.y += this.vy;
                 this.isGrounded = false;
 
@@ -324,16 +333,14 @@
                             this.y = p.y - this.h;
                             this.vy = 0;
                             this.isGrounded = true;
-                            if (p.vx) this.x += p.vx; // Move with moving lily pads
+                            if (p.vx) this.x += p.vx;
                             
-                            // Save checkpoint on every landed platform
                             lastSafeX = Math.max(10, Math.min(V_WIDTH - this.w - 10, p.x + p.w / 2 - this.w / 2));
                             lastSafeY = p.y - this.h - 2;
                         }
                     }
                 });
 
-                // Water/Pit Collision Check - Respawn safely at last platform
                 if (this.y > V_HEIGHT + 10) {
                     this.reset(lastSafeX, lastSafeY);
                 }
@@ -344,13 +351,11 @@
                 ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
                 const floatOffset = Math.sin(this.anim) * 2;
 
-                // Player Character (Glowing Spirit Spark)
                 ctx.fillStyle = '#fef08a';
                 ctx.beginPath();
                 ctx.arc(0, floatOffset, 11, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Eyes
                 ctx.fillStyle = '#1e1b4b';
                 ctx.beginPath();
                 ctx.arc(3, floatOffset - 1, 1.8, 0, Math.PI * 2);
@@ -378,10 +383,26 @@
             document.getElementById('level-progress-text').innerText = `${currentLevel} / 5`;
             document.getElementById('level-progress-bar').style.width = `${(currentLevel / 5) * 100}%`;
 
-            // Toggle Up touch button for maze level
+            const touchControlsBar = document.getElementById('touch-controls-bar');
             const btnUp = document.getElementById('touch-up');
-            if (currentLevel === 2) btnUp.classList.remove('hidden');
-            else btnUp.classList.add('hidden');
+            const btnDown = document.getElementById('touch-down');
+            const btnJump = document.getElementById('touch-jump');
+
+            if (currentLevel === 5) {
+                // Hide directional buttons for level 5 since user directly taps canvas stars
+                touchControlsBar.classList.add('invisible');
+            } else {
+                touchControlsBar.classList.remove('invisible');
+                if (currentLevel === 2) {
+                    btnUp.classList.remove('hidden');
+                    btnDown.classList.remove('hidden');
+                    btnJump.classList.add('hidden');
+                } else {
+                    btnUp.classList.add('hidden');
+                    btnDown.classList.add('hidden');
+                    btnJump.classList.remove('hidden');
+                }
+            }
 
             localStorage.setItem('guardian_dreams_level', currentLevel);
         }
@@ -393,7 +414,6 @@
             gems = [];
 
             if (lvl === 1) {
-                // Forest Platformer
                 platforms = [
                     { x: 0, y: 550, w: 400, h: 50 },
                     { x: 50, y: 460, w: 90, h: 14 },
@@ -410,7 +430,6 @@
                     { x: 160, y: 110, collected: false }
                 ];
             } else if (lvl === 2) {
-                // Top-down Maze
                 player.x = 30; player.y = 30;
                 gems = [
                     { x: 180, y: 120, collected: false },
@@ -419,18 +438,17 @@
                     { x: 330, y: 520, collected: false }
                 ];
             } else if (lvl === 3) {
-                // MUCH EASIER & SMOOTHER Level 3 (Moving Water Lilies)
                 lastSafeX = 30;
                 lastSafeY = 500;
                 player.reset(lastSafeX, lastSafeY);
 
                 platforms = [
-                    { x: 0, y: 540, w: 120, h: 60 }, // Starting large shore
-                    { x: 110, y: 450, w: 130, h: 18, vx: 0.5, minX: 80, maxX: 190 }, // Slow, wide lily pads
+                    { x: 0, y: 540, w: 120, h: 60 },
+                    { x: 110, y: 450, w: 130, h: 18, vx: 0.5, minX: 80, maxX: 190 },
                     { x: 180, y: 360, w: 130, h: 18, vx: -0.5, minX: 130, maxX: 240 },
                     { x: 90, y: 270, w: 140, h: 18, vx: 0.4, minX: 60, maxX: 180 },
                     { x: 200, y: 180, w: 130, h: 18, vx: -0.5, minX: 140, maxX: 250 },
-                    { x: 100, y: 95, w: 200, h: 22 } // Final large top shore
+                    { x: 100, y: 95, w: 200, h: 22 }
                 ];
 
                 gems = [
@@ -440,19 +458,18 @@
                     { x: 200, y: 60, collected: false }
                 ];
             } else if (lvl === 4) {
-                // Vertical Tower Climb - Much easier & comfortable on mobile
                 lastSafeX = 140;
                 lastSafeY = 510;
                 player.reset(lastSafeX, lastSafeY);
 
                 platforms = [
-                    { x: 80, y: 550, w: 240, h: 20 },  // Bottom safe base
-                    { x: 30, y: 470, w: 130, h: 16 },  // Step 1
-                    { x: 230, y: 390, w: 130, h: 16 },  // Step 2
-                    { x: 130, y: 310, w: 140, h: 16 },  // Step 3
-                    { x: 20, y: 230, w: 130, h: 16 },   // Step 4
-                    { x: 220, y: 150, w: 130, h: 16 },  // Step 5
-                    { x: 110, y: 75, w: 180, h: 18 }   // Top platform
+                    { x: 80, y: 550, w: 240, h: 20 },
+                    { x: 30, y: 470, w: 130, h: 16 },
+                    { x: 230, y: 390, w: 130, h: 16 },
+                    { x: 130, y: 310, w: 140, h: 16 },
+                    { x: 20, y: 230, w: 130, h: 16 },
+                    { x: 220, y: 150, w: 130, h: 16 },
+                    { x: 110, y: 75, w: 180, h: 18 }
                 ];
                 gems = [
                     { x: 95, y: 435, collected: false },
@@ -462,31 +479,69 @@
                     { x: 200, y: 40, collected: false }
                 ];
             } else if (lvl === 5) {
-                // Final Star Constellation Connect
+                // Heart Constellation Stars (Generous 65px touch radius, clickable in any order)
                 starConnections = [
-                    { x: 80, y: 420, active: false },
-                    { x: 200, y: 320, active: false },
-                    { x: 320, y: 420, active: false },
-                    { x: 260, y: 180, active: false },
-                    { x: 140, y: 180, active: false }
+                    { id: 1, x: 200, y: 480, active: false, radius: 65 },
+                    { id: 2, x: 80,  y: 300, active: false, radius: 65 },
+                    { id: 3, x: 140, y: 170, active: false, radius: 65 },
+                    { id: 4, x: 260, y: 170, active: false, radius: 65 },
+                    { id: 5, x: 320, y: 300, active: false, radius: 65 }
                 ];
             }
         }
 
+        function handleStarTouch(clientX, clientY) {
+            if (currentLevel !== 5 || !gameActive) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = V_WIDTH / rect.width;
+            const scaleY = V_HEIGHT / rect.height;
+            const touchX = (clientX - rect.left) * scaleX;
+            const touchY = (clientY - rect.top) * scaleY;
+
+            let starActivated = false;
+
+            // Check touch on any inactive star
+            starConnections.forEach(star => {
+                if (!star.active) {
+                    const dist = Math.hypot(touchX - star.x, touchY - star.y);
+                    if (dist <= star.radius) {
+                        star.active = true;
+                        starActivated = true;
+                        sound.playCollect();
+                    }
+                }
+            });
+
+            // Check if all stars are now connected
+            if (starActivated && starConnections.every(s => s.active)) {
+                gameActive = false;
+                sound.playFanfare();
+                setTimeout(triggerFinale, 600);
+            }
+        }
+
+        canvas.addEventListener('click', (e) => handleStarTouch(e.clientX, e.clientY));
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                handleStarTouch(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
         function gameLoop() {
             if (!gameActive) return;
+
+            animPulse += 0.05;
 
             // Background
             ctx.fillStyle = '#090d20';
             ctx.fillRect(0, 0, V_WIDTH, V_HEIGHT);
 
             if (currentLevel === 2) {
-                // Draw Maze Walls
                 ctx.strokeStyle = 'rgba(192, 132, 252, 0.4)';
                 ctx.lineWidth = 4;
                 ctx.strokeRect(10, 10, V_WIDTH - 20, V_HEIGHT - 20);
                 
-                // Inner Maze Lines
                 ctx.beginPath();
                 ctx.moveTo(100, 10); ctx.lineTo(100, 200);
                 ctx.moveTo(200, 150); ctx.lineTo(200, 400);
@@ -494,107 +549,123 @@
                 ctx.moveTo(100, 350); ctx.lineTo(100, 500);
                 ctx.stroke();
             } else if (currentLevel === 3) {
-                // Water ripples for Lake Level
                 ctx.fillStyle = 'rgba(30, 58, 138, 0.2)';
                 ctx.fillRect(0, 0, V_WIDTH, V_HEIGHT);
             } else if (currentLevel === 5) {
-                // Constellation Puzzle Rendering
-                ctx.strokeStyle = 'rgba(244, 114, 182, 0.5)';
-                ctx.lineWidth = 2;
+                // Constellation Puzzle Rendering Instructions
+                ctx.fillStyle = 'rgba(244, 114, 182, 0.9)';
+                ctx.font = '13px Comfortaa, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Докосни всички звезди, за да свържеш сърцето!', V_WIDTH / 2, 45);
+
+                // Draw Active Glowing Connection Lines
+                ctx.strokeStyle = '#f472b6';
+                ctx.lineWidth = 3.5;
                 ctx.beginPath();
-                starConnections.forEach((s, idx) => {
-                    if (idx === 0) ctx.moveTo(s.x, s.y);
-                    else ctx.lineTo(s.x, s.y);
+                let activeCount = 0;
+                starConnections.forEach((s) => {
+                    if (s.active) {
+                        if (activeCount === 0) ctx.moveTo(s.x, s.y);
+                        else ctx.lineTo(s.x, s.y);
+                        activeCount++;
+                    }
                 });
-                ctx.closePath();
+                if (activeCount > 1 && starConnections.every(s => s.active)) {
+                    ctx.closePath();
+                }
                 ctx.stroke();
 
-                // Draw Stars
+                // Render Stars
                 starConnections.forEach((s) => {
-                    const dist = Math.hypot(player.x + player.w / 2 - s.x, player.y + player.h / 2 - s.y);
-                    if (dist < 25) {
-                        if (!s.active) {
-                            s.active = true;
-                            sound.playCollect();
-                        }
+                    // Pulsing glow ring for inactive stars
+                    if (!s.active) {
+                        ctx.fillStyle = `rgba(253, 224, 71, ${0.18 + Math.sin(animPulse * 4) * 0.1})`;
+                        ctx.beginPath();
+                        ctx.arc(s.x, s.y, 20 + Math.sin(animPulse * 4) * 5, 0, Math.PI * 2);
+                        ctx.fill();
                     }
 
-                    ctx.fillStyle = s.active ? '#fef08a' : '#475569';
+                    // Star body
+                    ctx.fillStyle = s.active ? '#fef08a' : '#fde047';
+                    ctx.shadowColor = s.active ? '#f472b6' : '#fde047';
+                    ctx.shadowBlur = 14;
                     ctx.beginPath();
-                    ctx.arc(s.x, s.y, s.active ? 9 : 6, 0, Math.PI * 2);
+                    ctx.arc(s.x, s.y, s.active ? 12 : 10, 0, Math.PI * 2);
                     ctx.fill();
-                });
+                    ctx.shadowBlur = 0;
 
-                if (starConnections.every(s => s.active)) {
-                    gameActive = false;
-                    sound.playFanfare();
-                    setTimeout(triggerFinale, 500);
-                }
+                    // Star Number Badge
+                    ctx.fillStyle = s.active ? '#1e1b4b' : '#0f172a';
+                    ctx.font = 'bold 11px Comfortaa';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(s.id, s.x, s.y + 0.5);
+                });
             }
 
             // Platform Updates
-            platforms.forEach(p => {
-                if (p.vx) {
-                    p.x += p.vx;
-                    if (p.x < p.minX || p.x > p.maxX) p.vx *= -1;
-                }
-
-                if (currentLevel === 3) {
-                    // Draw Water Lily Pads
-                    ctx.fillStyle = 'rgba(16, 185, 129, 0.35)';
-                    ctx.strokeStyle = 'rgba(52, 211, 153, 0.7)';
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.roundRect(p.x, p.y, p.w, p.h, 10);
-                    ctx.fill();
-                    ctx.stroke();
-
-                    // Landing Indicator Ring
-                    ctx.strokeStyle = 'rgba(253, 224, 71, 0.4)';
-                    ctx.beginPath();
-                    ctx.arc(p.x + p.w / 2, p.y + p.h / 2, 8, 0, Math.PI * 2);
-                    ctx.stroke();
-                } else {
-                    ctx.fillStyle = 'rgba(168, 85, 247, 0.25)';
-                    ctx.strokeStyle = 'rgba(216, 180, 254, 0.5)';
-                    ctx.lineWidth = 1.5;
-                    ctx.beginPath();
-                    ctx.roundRect(p.x, p.y, p.w, p.h, 6);
-                    ctx.fill();
-                    ctx.stroke();
-                }
-            });
-
-            // Update Player
-            player.update(platforms, currentLevel === 2 ? 'maze' : (currentLevel === 3 ? 'lake' : 'platform'));
-            player.draw(ctx);
-
-            // Collectibles
-            gems.forEach(g => {
-                if (!g.collected) {
-                    const dist = Math.hypot(player.x + player.w / 2 - g.x, player.y + player.h / 2 - g.y);
-                    if (dist < 26) {
-                        g.collected = true;
-                        sound.playCollect();
+            if (currentLevel !== 5) {
+                platforms.forEach(p => {
+                    if (p.vx) {
+                        p.x += p.vx;
+                        if (p.x < p.minX || p.x > p.maxX) p.vx *= -1;
                     }
 
-                    ctx.fillStyle = '#f472b6';
-                    ctx.shadowColor = '#f472b6';
-                    ctx.shadowBlur = 8;
-                    ctx.beginPath();
-                    ctx.arc(g.x, g.y, 7, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                }
-            });
+                    if (currentLevel === 3) {
+                        ctx.fillStyle = 'rgba(16, 185, 129, 0.35)';
+                        ctx.strokeStyle = 'rgba(52, 211, 153, 0.7)';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.roundRect(p.x, p.y, p.w, p.h, 10);
+                        ctx.fill();
+                        ctx.stroke();
 
-            // Level Clear Condition
-            if (currentLevel !== 5 && gems.length > 0 && gems.every(g => g.collected)) {
-                gameActive = false;
-                sound.playFanfare();
-                setTimeout(() => {
-                    triggerIntermission();
-                }, 400);
+                        ctx.strokeStyle = 'rgba(253, 224, 71, 0.4)';
+                        ctx.beginPath();
+                        ctx.arc(p.x + p.w / 2, p.y + p.h / 2, 8, 0, Math.PI * 2);
+                        ctx.stroke();
+                    } else {
+                        ctx.fillStyle = 'rgba(168, 85, 247, 0.25)';
+                        ctx.strokeStyle = 'rgba(216, 180, 254, 0.5)';
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.roundRect(p.x, p.y, p.w, p.h, 6);
+                        ctx.fill();
+                        ctx.stroke();
+                    }
+                });
+
+                // Update Player
+                player.update(platforms, currentLevel === 2 ? 'maze' : (currentLevel === 3 ? 'lake' : 'platform'));
+                player.draw(ctx);
+
+                // Collectibles
+                gems.forEach(g => {
+                    if (!g.collected) {
+                        const dist = Math.hypot(player.x + player.w / 2 - g.x, player.y + player.h / 2 - g.y);
+                        if (dist < 26) {
+                            g.collected = true;
+                            sound.playCollect();
+                        }
+
+                        ctx.fillStyle = '#f472b6';
+                        ctx.shadowColor = '#f472b6';
+                        ctx.shadowBlur = 8;
+                        ctx.beginPath();
+                        ctx.arc(g.x, g.y, 7, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                });
+
+                // Level Clear Condition
+                if (gems.length > 0 && gems.every(g => g.collected)) {
+                    gameActive = false;
+                    sound.playFanfare();
+                    setTimeout(() => {
+                        triggerIntermission();
+                    }, 400);
+                }
             }
 
             requestAnimationFrame(gameLoop);
@@ -612,7 +683,7 @@
         }
 
         function triggerFinale() {
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+            confetti({ particleCount: 140, spread: 90, origin: { y: 0.6 } });
             document.getElementById('overlay-finale').classList.remove('hidden');
         }
 
@@ -627,13 +698,12 @@
         btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); });
 
         document.getElementById('btn-yes').addEventListener('click', () => {
-            confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
+            confetti({ particleCount: 220, spread: 110, origin: { y: 0.5 } });
             document.querySelector('#overlay-finale h2').innerText = "НАЙ-ПРЕКРАСНОТО ДА! ❤️✨";
-            document.querySelector('#overlay-finale .italic').innerHTML = "Обичам те! Благodаря ти, че изигра нашата малка приказка!";
+            document.querySelector('#overlay-finale .italic').innerHTML = "Обичам те! Благодаря ти, че изигра нашата малка приказка!";
             btnNo.style.display = 'none';
         });
 
-        // Key Controls
         window.addEventListener('keydown', e => {
             sound.init();
             if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
@@ -649,7 +719,6 @@
             if (e.key === 'ArrowDown' || e.key === 's') keys.down = false;
         });
 
-        // Touch Control Listeners
         const setupTouch = (id, key) => {
             const el = document.getElementById(id);
             if (!el) return;
@@ -666,9 +735,10 @@
         setupTouch('touch-left', 'left');
         setupTouch('touch-right', 'right');
         setupTouch('touch-up', 'up');
+        setupTouch('touch-down', 'down');
         setupTouch('touch-jump', 'up');
 
-        // Buttons
+        // Header Buttons & Start Controls
         document.getElementById('btn-start-game').addEventListener('click', () => {
             sound.init();
             document.getElementById('overlay-start').classList.add('hidden');
